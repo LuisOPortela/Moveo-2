@@ -1,0 +1,270 @@
+<?xml version='1.0'?>
+<robot
+  name="moveo_urdf">	
+
+  
+  <!-- BASE LINK -->
+  
+  <link
+    name="base_link">
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://urdf_example/meshes/base_link.stl" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.75294 0.75294 0.75294 1" />
+      </material>
+    </visual>
+  </link>
+
+
+  <!-- DUMMY LINK -->
+  
+  
+  <link
+    name="odom">
+    <inertial>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <mass
+        value="8.0643" />
+      <inertia
+        ixx="0.11291"
+        ixy="0.00066071"
+        ixz="-0.00030472"
+        iyy="0.089946"
+        iyz="0.011461"
+        izz="0.19187" />
+    </inertial>
+   </link>
+
+  <joint
+    name="odom_joint"
+    type="fixed">
+    <origin
+      xyz="0 0 0"
+      rpy="0 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="odom" />
+  </joint>
+
+
+  <!--   LINK 1   -->
+
+  <link
+    name="Link_1">
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://urdf_example/meshes/Link_1.stl" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.75294 0.75294 0.75294 1" />
+      </material>
+    </visual>
+  </link>
+  
+  <joint
+    name="Joint_1"
+    type="revolute">
+    <origin
+      xyz="0 0 0.092"
+      rpy="0 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="Link_1" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="-1.5707"
+      upper="1.5707"
+      effort="5"
+      velocity="1" />
+  </joint>
+  
+  
+   <!--   LINK 2   -->
+ 
+  
+  <link
+    name="Link_2">
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://urdf_example/meshes/Link_2.stl" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.75294 0.75294 0.75294 1" />
+      </material>
+    </visual>
+  </link>
+ 
+  <joint
+    name="Joint_2"
+    type="revolute">
+    <origin
+      xyz="0 0 0.14"
+      rpy="0 0 0" />
+    <parent
+      link="Link_1" />
+    <child
+      link="Link_2" />
+    <axis
+      xyz="-1 0 0" />
+    <limit
+      lower="-1.5707"
+      upper="1.5707"
+      effort="5"
+      velocity="1" />
+  </joint>
+ 
+  
+  
+   <!--   LINK 3   -->  
+
+  
+  <link
+    name="Link_3">
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://urdf_example/meshes/Link_3.stl" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.75294 0.75294 0.75294 1" />
+      </material>
+    </visual>
+  </link>
+ 
+  <joint
+    name="Joint_3"
+    type="revolute">
+    <origin
+      xyz="0 0 0.221"
+      rpy="0 0 0" />
+    <parent
+      link="Link_2" />
+    <child
+      link="Link_3" />
+    <axis
+      xyz="-1 0 0" />
+    <limit
+      lower="-1.5707"
+      upper="1.5707"
+      effort="5"
+      velocity="1" />
+  </joint>
+   
+   
+
+   <!--   LINK 4   --> 
+
+ 
+  <link
+    name="Link_4">
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://urdf_example/meshes/Link_4.stl" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.29412 0.29412 0.29412 1" />
+      </material>
+    </visual>
+  </link>
+  
+  <joint
+    name="Joint_4"
+    type="revolute">
+    <origin
+      xyz="0 0 0.165"
+      rpy="0 0 0" />
+    <parent
+      link="Link_3" />
+    <child
+      link="Link_4" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="-1.5707"
+      upper="1.5707"
+      effort="5"
+      velocity="1" />
+  </joint>
+  
+  
+   <!--   LINK 5   -->  
+  
+  
+  <link
+    name="Link_5">
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://urdf_example/meshes/Link_5.stl" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+
+  </link>
+  <joint
+    name="Joint_5"
+    type="revolute">
+    <origin
+      xyz="0 0 0.095"
+      rpy="0 0 0" />
+    <parent
+      link="Link_4" />
+    <child
+      link="Link_5" />
+    <axis
+      xyz="-1 0 0" />
+    <limit
+      lower="-1.5707"
+      upper="1.5707"
+      effort="5"
+      velocity="1" />
+  </joint>
+  
+</robot>
+
+
+  
+
