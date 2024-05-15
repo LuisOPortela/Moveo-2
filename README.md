@@ -12,12 +12,14 @@ Contains the STL files, correctly oriented and centered, some from the original 
 >!Enumerate which ones were moddified!
 
 The installed end effector is the [mantis gripper](https://www.thingiverse.com/thing:1480408), and an [adapter](https://www.thingiverse.com/thing:1783754) was used to install it.
-
-### Arm_try_3
+### Ros2 Packages 
+Ros2 Packages
+#### Arm_try_3
 Arm_try_3 is a MoveIT package, created using the MoveIt Setup Assistant. Some files were modified so the package would work correctly.
 The URDF of the robotic arm can be found at arm_try_3/config/moveo_urdf.urdf
 
-
+### Microcontroller
+Arduino Firmware, final deploys but also hardware test sketches.
 
 
 ## Installation
