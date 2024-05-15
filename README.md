@@ -1,5 +1,7 @@
 # Moveo-2
-Setup and control of a BCN3D Moveo Robotic Arm using Moveit 2
+Setup and control of a BCN3D Moveo Robotic Arm using Moveit 2.
+
+...More info on the Notion Page...
 
 ### Objectives:
 - Implement a feedback loop using absolute position sensors, in an already built BCN3D Moveo Robotic Arm.
