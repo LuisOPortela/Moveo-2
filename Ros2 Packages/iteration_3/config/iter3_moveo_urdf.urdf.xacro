@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="moveo">
+    <xacro:arg name="initial_positions_file" default="initial_positions.yaml" />
+    <xacro:arg name="use_ros2_control" default="true"/>
+    <xacro:arg name="sim_mode" default="false"/>
+    
+    <!-- Import moveo_urdf urdf file -->
+    <xacro:include filename="moveo_urdf.urdf" />
+
+    <!-- Import control_xacro -->
+    <xacro:include filename="iter3_moveo_urdf.ros2_control.xacro" />
+    
+</robot>
