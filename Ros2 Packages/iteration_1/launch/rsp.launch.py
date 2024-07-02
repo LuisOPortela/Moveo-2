@@ -8,7 +8,7 @@ import xacro
 def generate_launch_description():
 
     # Specify the name of the package and path to xacro file within the package
-    pkg_name = 'urdf_example'
+    pkg_name = 'iteration_1'
     ##file_subpath = 'description/example_robot.urdf.xacro'
     file_subpath = 'description/movyo_urdf.urdf'
 
