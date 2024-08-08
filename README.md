@@ -47,13 +47,17 @@ Arduino Firmware, final deploys but also hardware test sketches.
 
 ## Installation
 
+### Ubuntu Desktop 24.04 LTS:
+
+- Installed using Raspberry Pi imager.
+
 ### Ros2 Humble:
 
-- Install using Debian packages (https://docs.ros.org/en/humble/Installation/Ubuntu-Install-Debians.html)
+- Install using Debian packages (https://docs.ros.org/en/humble/Installation/Ubuntu-Install-Debians.html).
 
 ### Moveit:
 
 
 
 
-- Install  (https://moveit.picknik.ai/humble/doc/tutorials/getting_started/getting_started.html)
+- Install  (https://moveit.picknik.ai/humble/doc/tutorials/getting_started/getting_started.html).
