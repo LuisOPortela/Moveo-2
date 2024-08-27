@@ -1,0 +1,16 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"name": "Simple_rotate_motor",
+			"path": "../Simple_rotate_motor"
+		},
+		{
+			"name": "Moveo2_Arduino_Firmware",
+			"path": "../Moveo2_Arduino_Firmware"
+		}
+	],
+	"settings": {}
+}
