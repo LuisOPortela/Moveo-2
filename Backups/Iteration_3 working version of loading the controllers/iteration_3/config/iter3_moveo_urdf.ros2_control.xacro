@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+	
+    <xacro:if value="$(arg sim_mode)">
+		<ros2_control name="GazeboSystem" type="system">
+			<hardware>
+				<plugin>gazebo_ros2_control/GazeboSystem</plugin>
+			</hardware>
+			<joint name="Joint_1">
+				<command_interface name="position"/>
+				<state_interface name="position">
+					<param name="initial_value">0</param>
+				</state_interface>
+				<state_interface name="velocity"/>
+			</joint>
+			<joint name="Joint_2">
+				<command_interface name="position"/>
+				<state_interface name="position">
+					<param name="initial_value">0</param>
+				</state_interface>
+				<state_interface name="velocity"/>
+			</joint>
+				<joint name="Joint_3">
+				<command_interface name="position"/>
+				<state_interface name="position">
+					<param name="initial_value">0</param>
+				</state_interface>
+				<state_interface name="velocity"/>
+			</joint>
+				<joint name="Joint_4">
+				<command_interface name="position"/>
+				<state_interface name="position">
+					<param name="initial_value">0</param>
+				</state_interface>
+				<state_interface name="velocity"/>
+			</joint>
+				<joint name="Joint_5">
+				<command_interface name="position"/>
+				<state_interface name="position">
+					<param name="initial_value">0</param>
+				</state_interface>
+				<state_interface name="velocity"/>
+			</joint>
+		</ros2_control>
+    </xacro:if>
+
+    <gazebo>
+		<plugin name="gazebo_ros2_control" filename="libgazebo_ros2_control.so">
+			<parameters>$(find iteration_3)/config/my_controllers.yaml</parameters>
+			<parameters>$(find iteration_3)/config/gaz_ros2_ctl_use_sim.yaml</parameters>
+		</plugin>
+    </gazebo>
+</robot>

@@ -1,0 +1,521 @@
+<?xml version='1.0'?>
+<robot
+  name="moveo">	
+
+  
+  <!-- BASE LINK -->
+  
+  <link
+    name="base_link">
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://iteration_3/meshes/base_link.stl" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.75294 0.75294 0.75294 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://iteration_3/meshes/base_link.stl" />
+      </geometry>
+    </collision>
+  </link>
+
+
+  <!-- DUMMY LINK -->
+  
+  
+  <link
+    name="odom">
+    <inertial>
+      <origin
+        xyz="0.034155 -0.20591 -0.049641"
+        rpy="0 0 0" />
+      <mass
+        value="8.0643" />
+      <inertia
+        ixx="0.11291"
+        ixy="0.00066071"
+        ixz="-0.00030472"
+        iyy="0.089946"
+        iyz="0.011461"
+        izz="0.19187" />
+    </inertial>
+   </link>
+
+  <joint
+    name="odom_joint"
+    type="fixed">
+    <origin
+      xyz="0 0 0"
+      rpy="0 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="odom" />
+  </joint>
+
+
+  <!--   LINK 1   -->
+
+  <link
+    name="Link_1">
+    <inertial>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <mass
+        value="4.2526" />
+      <inertia
+        ixx="0.0034071"
+        ixy="8.9041E-06"
+        ixz="1.179E-07"
+        iyy="0.018642"
+        iyz="-3.6544E-06"
+        izz="0.021987" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://iteration_3/meshes/Link_1.stl" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.75294 0.75294 0.75294 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://iteration_3/meshes/Link_1.stl" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="Joint_1"
+    type="revolute">
+    <origin
+      xyz="0 0 0.092"
+      rpy="0 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="Link_1" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="-1.5707"
+      upper="1.5707"
+      effort="5.0"
+      velocity="1.0" />
+  </joint>
+  
+  
+   <!--   LINK 2   -->
+ 
+  
+  <link
+    name="Link_2">
+    <inertial>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <mass
+        value="1.9323" />
+      <inertia
+        ixx="0.012138"
+        ixy="-3.5576E-06"
+        ixz="-9.0632E-06"
+        iyy="0.011445"
+        iyz="0.00014273"
+        izz="0.00070271" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://iteration_3/meshes/Link_2.stl" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.75294 0.75294 0.75294 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://iteration_3/meshes/Link_2.stl" />
+      </geometry>
+    </collision>
+  </link>
+ 
+  <joint
+    name="Joint_2"
+    type="revolute">
+    <origin
+      xyz="0 0 0.14"
+      rpy="0 0 0" />
+    <parent
+      link="Link_1" />
+    <child
+      link="Link_2" />
+    <axis
+      xyz="-1 0 0" />
+    <limit
+      lower="-1.963"
+      upper="1.963"
+      effort="5.0"
+      velocity="1.0" />
+  </joint>
+ 
+  
+  
+   <!--   LINK 3   -->  
+
+  
+  <link
+    name="Link_3">
+    <inertial>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <mass
+        value="1.1381" />
+      <inertia
+        ixx="0.00023572"
+        ixy="-3.8425E-06"
+        ixz="4.1286E-06"
+        iyy="0.00029123"
+        iyz="-1.0387E-07"
+        izz="0.00052457" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://iteration_3/meshes/Link_3.stl" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.75294 0.75294 0.75294 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://iteration_3/meshes/Link_3.stl" />
+      </geometry>
+    </collision>
+  </link>
+ 
+  <joint
+    name="Joint_3"
+    type="revolute">
+    <origin
+      xyz="0 0 0.221"
+      rpy="0 0 0" />
+    <parent
+      link="Link_2" />
+    <child
+      link="Link_3" />
+    <axis
+      xyz="-1 0 0" />
+    <limit
+      lower="-1.963"
+      upper="1.963"
+      effort="5.0"
+      velocity="1.0" />
+  </joint>
+   
+   
+
+   <!--   LINK 4   --> 
+
+ 
+  <link
+    name="Link_4">
+    <inertial>
+      <origin
+        xyz="-0.0027417 0.0025097 0.012864"
+        rpy="0 0 0" />
+      <mass
+        value="0.62964" />
+      <inertia
+        ixx="0.0001717"
+        ixy="1.3446E-06"
+        ixz="8.5164E-06"
+        iyy="0.00010506"
+        iyz="5.1412E-05"
+        izz="7.8944E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://iteration_3/meshes/Link_4.stl" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.29412 0.29412 0.29412 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://iteration_3/meshes/Link_4.stl" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="Joint_4"
+    type="revolute">
+    <origin
+      xyz="0 0 0.165"
+      rpy="0 0 0" />
+    <parent
+      link="Link_3" />
+    <child
+      link="Link_4" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="-3.1415"
+      upper="3.1415"
+      effort="5.0"
+      velocity="1.0" />
+  </joint>
+  
+  
+  
+   <!--   LINK 5   -->  
+  
+  
+  <link
+    name="Link_5">
+    <inertial>
+      <origin
+        xyz="-0.011366 0.00012239 0.0078967"
+        rpy="0 0 0" />
+      <mass
+        value="0.19875" />
+      <inertia
+        ixx="6.2676E-05"
+        ixy="4.2551E-06"
+        ixz="4.0215E-05"
+        iyy="9.7792E-05"
+        iyz="8.5888E-07"
+        izz="9.5807E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://iteration_3/meshes/Link_5.stl" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://iteration_3/meshes/Link_5.stl" />
+      </geometry>
+    </collision>
+  </link>
+  
+  <joint
+    name="Joint_5"
+    type="revolute">
+    <origin
+      xyz="0 0 0.095"
+      rpy="0 0 0" />
+    <parent
+      link="Link_4" />
+    <child
+      link="Link_5" />
+    <axis
+      xyz="-1 0 0" />
+    <limit
+      lower="-1.5707"
+      upper="1.5707"
+      effort="5.0"
+      velocity="1.0" />
+  </joint>
+  
+   <!--   Left Claw (needs Rotation 180 z)  -->  
+  
+  <link
+    name="Left Claw">
+    <inertial>
+      <origin
+        xyz="-0.0063957 -0.0033021 -0.00082714"
+        rpy="0 0 0" />
+      <mass
+        value="0.0048997" />
+      <inertia
+        ixx="2.0097E-09"
+        ixy="-3.0673E-09"
+        ixz="-6.3297E-10"
+        iyy="4.9761E-09"
+        iyz="-3.9668E-10"
+        izz="6.8221E-09" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://iteration_3/meshes/Claw_3_l.stl" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.9098 0.44314 0.031373 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://iteration_3/meshes/Claw_3_l.stl" />
+      </geometry>
+    </collision>
+  </link>
+  
+   <joint
+    name="Joint_Left_Claw"
+    type="revolute">
+    <origin
+      xyz="0 -0.009 0.121"
+      rpy="0 0 3.14159" />
+    <parent
+      link="Link_5" />
+    <child
+      link="Left Claw" />
+    <axis
+      xyz="0 -1 0" />
+    <limit
+      lower="0"
+      upper="0.66"
+      effort="5.0"
+      velocity="1.0" />
+  </joint>
+  
+   
+<!--    Right Claw (needs Rotation 180 z)     --> 
+  
+  <link
+    name="Right Claw">
+    <inertial>
+      <origin
+        xyz="-0.0063957 -0.0033021 -0.00082714"
+        rpy="0 0 0" />
+      <mass
+        value="0.0048997" />
+      <inertia
+        ixx="2.0097E-09"
+        ixy="-3.0673E-09"
+        ixz="-6.3297E-10"
+        iyy="4.9761E-09"
+        iyz="-3.9668E-10"
+        izz="6.8221E-09" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://iteration_3/meshes/Claw_3_r.stl" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.9098 0.44314 0.031373 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://iteration_3/meshes/Claw_3_r.stl" />
+      </geometry>
+    </collision>
+  </link>
+  
+  <joint
+    name="Joint_Right_Claw"
+    type="revolute">
+    <origin
+      xyz="0 -0.009 0.121"
+      rpy="0 0 3.14159" />
+    <parent
+      link="Link_5" />
+    <child
+      link="Right Claw" />
+    <axis
+      xyz="0 1 0" />
+    <limit
+      lower="-1.5707"
+      upper="1.5707"
+      effort="5.0"
+      velocity="1.0" />
+    <mimic joint="Joint_Left_Claw" multiplier= "1.0"/>
+  </joint>
+
+
+
+</robot>
+
+
+  
+
