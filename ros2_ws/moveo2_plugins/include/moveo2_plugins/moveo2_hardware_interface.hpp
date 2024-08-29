@@ -20,7 +20,7 @@ namespace moveo2_plugins
   struct Config
   {
     std::string i2c_bus = "/dev/i2c-1";
-    std::string serial_device = "/dev/ttyUSB0";
+    std::string serial_device;
     int baud_rate = 9600;
     int timeout = 1000;
   };

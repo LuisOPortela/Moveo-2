@@ -1,0 +1,19 @@
+moveit_setup_assistant_config:
+  urdf:
+    package: iteration_2
+    relative_path: config/moveo_urdf.urdf
+  srdf:
+    relative_path: config/moveo_urdf.srdf
+  package_settings:
+    author_name: Luis Portela
+    author_email: lportela@fe.up.pt
+    generated_timestamp: 1713449064
+  control_xacro:
+    command:
+      - position
+    state:
+      - position
+  modified_urdf:
+    xacros:
+      - control_xacro
+

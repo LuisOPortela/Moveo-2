@@ -1,6 +1,7 @@
 #include <iostream>
 using  namespace std;
 
+//Constructer: Steps, Direction, Pulses Pin, Direction Pin
 struct moveoJoint
 {
 
@@ -9,7 +10,7 @@ struct moveoJoint
     int pinPulse;
     int pinDir;
     AccelStepper motor;
-  
+    
     moveoJoint(int step, int dir, int pPulse, int pDir)
      : pulseRev(step), direction(dir), pinPulse(pPulse), pinDir(pDir)
     {

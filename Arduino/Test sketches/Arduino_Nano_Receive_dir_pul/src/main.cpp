@@ -27,7 +27,7 @@ int speed2steps(float speed, int pulsesRev);
 //                         Setup
 //     - Pins
 //     - Serial
-//     - Motor?
+//     - Motor
 //
 //----------------------------------------------------------------
 

@@ -9,6 +9,7 @@
 using SysWriteFunc = ssize_t(*)(int, const void*, size_t);
 const SysWriteFunc i2c_write = ::write;
 */
+const std::string GREEN = "\033[92m";
 const std::string RED = "\033[31m";
 const std::string RESET = "\033[0m";
 
@@ -89,7 +90,7 @@ hardware_interface::CallbackReturn Moveo2HardwareInterface::on_init(            
   */
   //********************************************************************** 
 
-
+  RCLCPP_INFO(rclcpp::get_logger("Moveo2HardwareInterface"),"%sOn_init -> Success, Finished Setup.%s",GREEN.c_str(),RESET.c_str());
   return CallbackReturn::SUCCESS;
 }
 
@@ -186,7 +187,7 @@ return_type Moveo2HardwareInterface::write(const rclcpp::Time &, const rclcpp::D
   // DISTINGUI ENTRE OS JOINTS AO MANDAR VALORES
   for (auto & joint : moveo2_joints_)
   {
-    //serial_port_.sendMsg(std::to_string(joint.velocities_command) + 's');
+    serial_port_.sendMsg(std::to_string(joint.velocities_command) + 's');
     //RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Writing joint velocitie command : %f", joint.velocities_command);
   }
   
