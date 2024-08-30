@@ -150,7 +150,7 @@ return_type Moveo2HardwareInterface::read(const rclcpp::Time & /*time*/, const r
     //*This read function must receive the values from the encoder trough the i2c door!!!!!
 
     char M[2]={};
-    ioctl(i2c_bus_, I2C_SLAVE, joint.encoder_i2c_adress);
+    ioctl(i2c_bus_, I2C_SLAVE, 0x40);
     
     M[0]=0xFE;
     ::write(i2c_bus_, M, 1);
