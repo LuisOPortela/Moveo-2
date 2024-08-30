@@ -160,7 +160,7 @@ return_type Moveo2HardwareInterface::read(const rclcpp::Time & /*time*/, const r
 
     }
     double joint_position = (M[1]<<6) + (M[0] & 0x3F);     
-    RCLCPP_INFO(rclcpp::get_logger("Moveo2HardwareInterface"),"%s Read -> Sensor value %f:%s",RED.c_str(),joint_position,RESET.c_str());
+    RCLCPP_INFO(rclcpp::get_logger("Moveo2HardwareInterface"),"%s Read -> Sensor value %f:%s",GREEN.c_str(),joint_position,RESET.c_str());
     //*Calculate the velocity with the position!!!!
 
     const double delta_seconds = period.seconds();
