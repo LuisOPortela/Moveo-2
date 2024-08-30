@@ -141,7 +141,7 @@ return_type Moveo2HardwareInterface::read(const rclcpp::Time & /*time*/, const r
 {
 
     //std::string response = serial_port_.read();
-/*
+
 
   for (auto & joint : moveo2_joints_)
   {
@@ -149,15 +149,18 @@ return_type Moveo2HardwareInterface::read(const rclcpp::Time & /*time*/, const r
     
     //*This read function must receive the values from the encoder trough the i2c door!!!!!
 
-    char M_1[sizeof(int)]={};
+    char M[2]={};
     ioctl(i2c_bus_, I2C_SLAVE, joint.encoder_i2c_adress);
     
-    i2c_write(i2c_bus_, M_1, 1); 
-    ::write(i2c_bus_, M_1, 21);
-    
-    float joint_position= atof(M_1);
-    
-    
+    M[0]=0xFE;
+    ::write(i2c_bus_, M, 1);
+    if(::read(i2c_bus_,M,2)!=2)
+    {
+       RCLCPP_INFO(rclcpp::get_logger("Moveo2HardwareInterface"),"%s Read -> I2C Bus error:%s",RED.c_str(),RESET.c_str());
+
+    }
+    double joint_position = (M[1]<<6) + (M[0] & 0x3F);     
+    RCLCPP_INFO(rclcpp::get_logger("Moveo2HardwareInterface"),"%s Read -> Sensor value %f:%s",RED.c_str(),joint_position,RESET.c_str());
     //*Calculate the velocity with the position!!!!
 
     const double delta_seconds = period.seconds();
@@ -165,13 +168,13 @@ return_type Moveo2HardwareInterface::read(const rclcpp::Time & /*time*/, const r
     joint.velocities_state = (joint_position- joint_position_previous)/delta_seconds;
     
     
-*/    
+    
     for (auto & joint : moveo2_joints_)
     {
-      joint.velocities_state = joint.velocities_command;
-      joint.position_state += joint.velocities_command * period.seconds();
+      //joint.velocities_state = joint.velocities_command;
+      //joint.position_state += joint.velocities_command * period.seconds();
     }
-  //}
+  }
 
   return return_type::OK;
 }
