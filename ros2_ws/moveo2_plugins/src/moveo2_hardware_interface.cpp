@@ -80,14 +80,14 @@ hardware_interface::CallbackReturn Moveo2HardwareInterface::on_init(            
    
   //***********************************************************************
   //*                               I2C
-  /*
-  char*bus = "/dev/i2c-1";                  //Open I2C Bus
+  
+  char *bus = "/dev/i2c-1";                  //Open I2C Bus
   if((i2c_bus_ = open(bus, O_RDWR)) < 0)
   {
     RCLCPP_INFO(rclcpp::get_logger("Moveo2HardwareInterface"),"%sOn_init -> I2C Bus error:%s",RED.c_str(),RESET.c_str());
     return CallbackReturn::ERROR;
   } 
-  */
+  
   //********************************************************************** 
 
   RCLCPP_INFO(rclcpp::get_logger("Moveo2HardwareInterface"),"%sOn_init -> Success, Finished Setup.%s",GREEN.c_str(),RESET.c_str());
@@ -149,18 +149,25 @@ return_type Moveo2HardwareInterface::read(const rclcpp::Time & /*time*/, const r
     
     //*This read function must receive the values from the encoder trough the i2c door!!!!!
 
-    char M[2]={};
     ioctl(i2c_bus_, I2C_SLAVE, 0x40);
     
-    M[0]=0xFE;
+    char M[1]={0xFE};
     ::write(i2c_bus_, M, 1);
-    if(::read(i2c_bus_,M,2)!=2)
+    
+    
+    char D[2]={0};
+    if(::read(i2c_bus_,D,2)!=2)
     {
        RCLCPP_INFO(rclcpp::get_logger("Moveo2HardwareInterface"),"%s Read -> I2C Bus error:%s",RED.c_str(),RESET.c_str());
 
     }
-    double joint_position = (M[1]<<6) + (M[0] & 0x3F);     
-    RCLCPP_INFO(rclcpp::get_logger("Moveo2HardwareInterface"),"%s Read -> Sensor value %f:%s",GREEN.c_str(),joint_position,RESET.c_str());
+
+    //std::this_thread::sleep_for(std::chrono::milliseconds(100));
+    int y= D[0];
+    int x= D[1];
+
+    double joint_position = ((x<<6) +(y & 0x3F))*2*3.1416/(1 << 14)-3.1416;     
+    //RCLCPP_INFO(rclcpp::get_logger("Moveo2HardwareInterface"),"%s Read -> Sensor value %f:%s",GREEN.c_str(),joint_position,RESET.c_str());
     //*Calculate the velocity with the position!!!!
 
     const double delta_seconds = period.seconds();
