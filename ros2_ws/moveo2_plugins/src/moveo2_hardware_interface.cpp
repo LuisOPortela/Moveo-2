@@ -69,7 +69,7 @@ hardware_interface::CallbackReturn Moveo2HardwareInterface::on_init(            
   }
   catch(const std::exception& e)
   {
-    RCLCPP_INFO(rclcpp::get_logger("Moveo2HardwareInterface"),"%sOn_init -> Serial Port ERROR: %s%s",RED.c_str(),e.what(),RESET.c_str());
+    RCLCPP_INFO(rclcpp::get_logger("Moveo2HardwareInterface"),"%sOn_init -> Serial Port ERROR (Usually device not connected): %s%s",RED.c_str(),e.what(),RESET.c_str());
     return CallbackReturn::ERROR;
   }
   

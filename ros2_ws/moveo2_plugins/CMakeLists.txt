@@ -18,7 +18,7 @@ find_package(rclcpp REQUIRED)
 find_package(pluginlib REQUIRED)
 find_package(serial REQUIRED)
 
-add_library(moveo2_plugins SHARED src/moveo2_hardware_interface.cpp src/moveo2_serial_port.cpp)
+add_library(moveo2_plugins SHARED src/moveo2_hardware_interface.cpp src/moveo2_serial_port.cpp src/moveo2_i2c_bus.cpp)
 
 
 target_include_directories(
