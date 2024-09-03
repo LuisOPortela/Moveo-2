@@ -5,6 +5,7 @@
 		<ros2_control name="ros2ctl_iter4_system" type="system">
 			<hardware>
 				<plugin>moveo2_plugins/Moveo2HardwareInterface</plugin>
+				<param name="i2c_bus">/dev/i2c-1</param>
 				<param name="serial_device">/dev/ttyACM0</param>
 				<param name="baud_rate">9600</param>
 				<param name="timeout">1000</param>

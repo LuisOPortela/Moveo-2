@@ -3,6 +3,7 @@
 
 #include "moveo2_plugins/visibility_control.h"
 #include "moveo2_plugins/moveo2_serial_port.hpp"
+#include "moveo2_plugins/moveo2_i2c_bus.hpp"
 #include "serial/serial.h"
 
 #include "hardware_interface/handle.hpp"
@@ -15,7 +16,10 @@
 using hardware_interface::return_type;
 
 namespace moveo2_plugins
-{
+{ 
+  const std::string GREEN = "\033[92m";
+  const std::string RED = "\033[31m";
+  const std::string RESET = "\033[0m";
 
   struct Config
   {
@@ -56,8 +60,8 @@ namespace moveo2_plugins
     protected:
       Config cfg_;
       std::vector<Joint> moveo2_joints_;
-      Moveo2SerialPort serial_port_;
-      int i2c_bus_;
+      Moveo2SerialPort serial_conn_;
+      Moveo2I2C i2c_conn_;
 
   };
 

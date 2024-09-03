@@ -1,8 +1,6 @@
 #include "moveo2_plugins/moveo2_serial_port.hpp"
 #include "rclcpp/rclcpp.hpp"
 
-
-
 void Moveo2SerialPort::setup(const std::string &serial_device, int32_t baud_rate, int32_t timeout_ms)
 {  
     serial_conn_.setPort(serial_device);
@@ -14,17 +12,37 @@ void Moveo2SerialPort::setup(const std::string &serial_device, int32_t baud_rate
 
 }
 
-
 void Moveo2SerialPort::sendEmptyMsg()
 {
     // std::string response = sendMsg("0s");
 }
 
+void Moveo2SerialPort::sendMsg(const std::string &msg_to_send)
+{
+    serial_conn_.write(msg_to_send);
+}
+
+
+/*
 std::string Moveo2SerialPort::read()
 {
     std::string response = serial_conn_.readline();
     return response;
 
+}
+
+std::string Moveo2SerialPort::sendMsg(const std::string &msg_to_send, bool print_output)
+{
+    serial_conn_.write(msg_to_send);
+    std::string response = serial_conn_.readline();
+
+    if (print_output)
+    {
+        //RCLCPP_INFO_STREAM(logger_,"Sent: " << msg_to_send);
+       // RCLCPP_INFO_STREAM(logger_,"Received: " << response);
+    }
+
+    return response;
 }
 
 void Moveo2SerialPort::readEncoderValues(int &val_1, int &val_2)
@@ -55,22 +73,4 @@ void Moveo2SerialPort::setPidValues(float k_p, float k_d, float k_i, float k_o)
     sendMsg(ss.str());
 }
 
-void Moveo2SerialPort::sendMsg(const std::string &msg_to_send)
-{
-    serial_conn_.write(msg_to_send);
-}
-
-
-// std::string Moveo2SerialPort::sendMsg(const std::string &msg_to_send, bool print_output)
-// {
-//     serial_conn_.write(msg_to_send);
-//     std::string response = serial_conn_.readline();
-
-//     if (print_output)
-//     {
-//         //RCLCPP_INFO_STREAM(logger_,"Sent: " << msg_to_send);
-//        // RCLCPP_INFO_STREAM(logger_,"Received: " << response);
-//     }
-
-//     return response;
-// }
+*/

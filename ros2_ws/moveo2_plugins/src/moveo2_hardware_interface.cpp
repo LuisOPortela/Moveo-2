@@ -1,18 +1,5 @@
 #include "moveo2_plugins/moveo2_hardware_interface.hpp"
 #include "rclcpp/rclcpp.hpp"
-#include <linux/i2c-dev.h>  //i2c_slave
-#include <fcntl.h>          //open
-#include <sys/ioctl.h>      //ioctl
-#include <unistd.h>         //write 
-
-/*
-using SysWriteFunc = ssize_t(*)(int, const void*, size_t);
-const SysWriteFunc i2c_write = ::write;
-*/
-const std::string GREEN = "\033[92m";
-const std::string RED = "\033[31m";
-const std::string RESET = "\033[0m";
-
 
 namespace moveo2_plugins
 {
@@ -44,36 +31,45 @@ hardware_interface::CallbackReturn Moveo2HardwareInterface::on_init(            
     return CallbackReturn::ERROR;
   }
 
-  //*Receive params defined in the ros2_control.xacro!
-  //*
-
-  cfg_.serial_device = info_.hardware_parameters["serial_device"];
-  cfg_.baud_rate = std::stoi(info_.hardware_parameters["baud_rate"]);
-  cfg_.timeout = std::stoi(info_.hardware_parameters["timeout"]);
+  //*********************************************************************
+  //*                  Parameters (from ros2_control.xacro)
   
+  try {
+    cfg_.i2c_bus = info_.hardware_parameters.at("i2c_bus");
+    cfg_.serial_device = info_.hardware_parameters.at("serial_device");
+    cfg_.baud_rate = std::stoi(info_.hardware_parameters.at("baud_rate"));
+    cfg_.timeout = std::stoi(info_.hardware_parameters.at("timeout"));
 
-
-  const int number_joints = info_.joints.size();
-  moveo2_joints_.resize(number_joints);
-
-  for (auto i = 0; i <number_joints ; ++i)
+    for (const auto& joint : info_.joints) 
+    {
+        moveo2_joints_.emplace_back(Joint{
+            joint.name,
+            std::stoi(joint.parameters.at("steps_per_revolution")),
+            std::stoi(joint.parameters.at("encoder_i2c_adress"))
+        });
+    }
+  } 
+  catch (const std::out_of_range& e) 
   {
-    moveo2_joints_[i].name                   = info_.joints[i].name;
-    moveo2_joints_[i].steps_per_revolution   = std::stoi(info_.joints[i].parameters["steps_per_revolution"]);
-    moveo2_joints_[i].encoder_i2c_adress     = std::stoi(info_.joints[i].parameters["encoder_i2c_adress"]);
+    RCLCPP_INFO(rclcpp::get_logger("Moveo2HardwareInterface"),"%sOn_init -> Parameter missing ERROR: %s%s",RED.c_str(),e.what(),RESET.c_str());
+    return CallbackReturn::ERROR;
+  } 
+  catch (const std::invalid_argument& e) 
+  {
+    RCLCPP_INFO(rclcpp::get_logger("Moveo2HardwareInterface"),"%sOn_init -> Invalid parameter ERROR: %s%s",RED.c_str(),e.what(),RESET.c_str());
+    return CallbackReturn::ERROR;
   }
 
-  
   //**********************************************************************
   //*                             Serial
 
   try
   {
-    serial_port_.setup(cfg_.serial_device, 9600 , 1000 );  
+    serial_conn_.setup(cfg_.serial_device, cfg_.baud_rate , cfg_.timeout );  
   }
   catch(const std::exception& e)
   {
-    RCLCPP_INFO(rclcpp::get_logger("Moveo2HardwareInterface"),"%sOn_init -> Serial Port error:%s%s",RED.c_str(),e.what(),RESET.c_str());
+    RCLCPP_INFO(rclcpp::get_logger("Moveo2HardwareInterface"),"%sOn_init -> Serial Port ERROR: %s%s",RED.c_str(),e.what(),RESET.c_str());
     return CallbackReturn::ERROR;
   }
   
@@ -81,10 +77,13 @@ hardware_interface::CallbackReturn Moveo2HardwareInterface::on_init(            
   //***********************************************************************
   //*                               I2C
   
-  char *bus = "/dev/i2c-1";                  //Open I2C Bus
-  if((i2c_bus_ = open(bus, O_RDWR)) < 0)
+  try
   {
-    RCLCPP_INFO(rclcpp::get_logger("Moveo2HardwareInterface"),"%sOn_init -> I2C Bus error:%s",RED.c_str(),RESET.c_str());
+    i2c_conn_.setup(cfg_.i2c_bus.c_str());  
+  }
+  catch(const std::exception& e)
+  {
+    RCLCPP_INFO(rclcpp::get_logger("Moveo2HardwareInterface"),"%sOn_init -> I2C Bus ERROR:%s",RED.c_str(),RESET.c_str());
     return CallbackReturn::ERROR;
   } 
   
@@ -139,48 +138,33 @@ std::vector<hardware_interface::CommandInterface> Moveo2HardwareInterface::expor
 
 return_type Moveo2HardwareInterface::read(const rclcpp::Time & /*time*/, const rclcpp::Duration & period) 
 {
-
-    //std::string response = serial_port_.read();
-
-
   for (auto & joint : moveo2_joints_)
   {
     const auto joint_position_previous = joint.position_state;
-    
-    //*This read function must receive the values from the encoder trough the i2c door!!!!!
-
-    ioctl(i2c_bus_, I2C_SLAVE, 0x40);
-    
-    char M[1]={0xFE};
-    ::write(i2c_bus_, M, 1);
-    
-    
-    char D[2]={0};
-    if(::read(i2c_bus_,D,2)!=2)
+    double joint_position;
+  
+    try
     {
-       RCLCPP_INFO(rclcpp::get_logger("Moveo2HardwareInterface"),"%s Read -> I2C Bus error:%s",RED.c_str(),RESET.c_str());
-
+      joint_position = i2c_conn_.read_sensor(joint.encoder_i2c_adress);
+      //RCLCPP_INFO(rclcpp::get_logger("Moveo2HardwareInterface"),"%s Read -> Sensor value %f:%s",GREEN.c_str(),joint_position,RESET.c_str());
     }
-
-    //std::this_thread::sleep_for(std::chrono::milliseconds(100));
-    int y= D[0];
-    int x= D[1];
-
-    double joint_position = ((x<<6) +(y & 0x3F))*2*3.1416/(1 << 14)-3.1416;     
-    //RCLCPP_INFO(rclcpp::get_logger("Moveo2HardwareInterface"),"%s Read -> Sensor value %f:%s",GREEN.c_str(),joint_position,RESET.c_str());
-    //*Calculate the velocity with the position!!!!
-
+    catch (const std::exception& e)
+    {
+       RCLCPP_INFO(rclcpp::get_logger("Moveo2HardwareInterface"),"%s Read -> I2C Bus error:%s%s",RED.c_str(),e.what(),RESET.c_str());
+    }
+  
     const double delta_seconds = period.seconds();
     joint.position_state = joint_position;
     joint.velocities_state = (joint_position- joint_position_previous)/delta_seconds;
     
     
-    
+  /*    
     for (auto & joint : moveo2_joints_)
     {
-      //joint.velocities_state = joint.velocities_command;
-      //joint.position_state += joint.velocities_command * period.seconds();
+      joint.velocities_state = joint.velocities_command;
+      joint.position_state += joint.velocities_command * period.seconds();
     }
+  */  
   }
 
   return return_type::OK;
@@ -197,7 +181,7 @@ return_type Moveo2HardwareInterface::write(const rclcpp::Time &, const rclcpp::D
   // DISTINGUI ENTRE OS JOINTS AO MANDAR VALORES
   for (auto & joint : moveo2_joints_)
   {
-    serial_port_.sendMsg(std::to_string(joint.velocities_command) + 's');
+    serial_conn_.sendMsg(std::to_string(joint.velocities_command) + 's');
     //RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Writing joint velocitie command : %f", joint.velocities_command);
   }
   

@@ -2,3 +2,9 @@
 /ros2_ws/install/
 /ros2_ws/log/
 
+.vscode/c_cpp_properties.json
+.vscode/settings.json
+Arduino/Test sketches/Moveo2_Arduino_Firmware/.vscode/extensions.json
+Arduino/Test sketches/Arduino_Nano_Receive_dir_pul/.vscode/extensions.json
+Arduino/Test sketches/Arduino_Nano_Receive_dir_pul/src/Receive_dir_pul.code-workspace
+
