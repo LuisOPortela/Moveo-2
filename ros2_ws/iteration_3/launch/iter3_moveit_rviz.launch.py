@@ -9,9 +9,7 @@ def generate_moveit_rviz_launch(moveit_config):
     ld = LaunchDescription()
 
     ld.add_action(DeclareBooleanLaunchArg("debug", default_value=False))
-    ld.add_action(
-        DeclareLaunchArgument(
-            "rviz_config",
+    ld.add_action(DeclareLaunchArgument("rviz_config",
             default_value=str(moveit_config.package_path / "config/moveit.rviz"),
         )
     )	
@@ -19,7 +17,6 @@ def generate_moveit_rviz_launch(moveit_config):
     param_sim_time={
     	"use_sim_time": True
     }
-    
     
     rviz_parameters = [
         moveit_config.planning_pipelines,

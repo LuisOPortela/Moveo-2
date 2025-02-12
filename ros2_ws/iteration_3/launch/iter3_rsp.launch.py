@@ -19,7 +19,7 @@ def generate_launch_description():
 
     # Process the URDF file
     pkg_path = os.path.join(get_package_share_directory('iteration_3'))
-    xacro_file = os.path.join(pkg_path,'config','iter3_moveo_urdf.urdf.xacro')
+    xacro_file = os.path.join(pkg_path,'urdf','iter3_moveo_urdf.urdf.xacro')
     # robot_description_config = xacro.process_file(xacro_file).toxml()
     robot_description_config = Command(['xacro ', xacro_file, ' use_ros2_control:=', use_ros2_control, ' sim_mode:=', use_sim_time])
     

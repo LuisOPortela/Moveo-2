@@ -1,9 +1,9 @@
 moveit_setup_assistant_config:
   urdf:
     package: iteration_3
-    relative_path: config/moveo_urdf.urdf
+    relative_path: urdf/moveo_urdf.urdf
   srdf:
-    relative_path: config/moveo_urdf.srdf
+    relative_path: urdf/moveo_urdf.srdf
   package_settings:
     author_name: Luis Portela
     author_email: lportela@fe.up.pt

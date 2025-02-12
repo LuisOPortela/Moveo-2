@@ -14,42 +14,37 @@ import xacro
 
 
 def generate_launch_description():
-    
+    use_sim_time = LaunchConfiguration('use_sim_time', default='True')
     package_name='iteration_3'
+    share_dir=get_package_share_directory(package_name)
 
-   #####################################################################
+    #####################################################################
+    # ROBOT STATE PUBLISHER
+   
     rsp = IncludeLaunchDescription(
-                PythonLaunchDescriptionSource([os.path.join(
-                    get_package_share_directory(package_name),'launch','iter3_rsp.launch.py'
-                )]), launch_arguments={'use_sim_time': 'true', 'use_ros2_control': 'true'}.items()
+                PythonLaunchDescriptionSource(os.path.join(
+                    share_dir,'launch','iter3_rsp.launch.py'
+                )), launch_arguments={'use_sim_time': 'true', 'use_ros2_control': 'true'}.items()
     )
-    
-   ####################################################################
-    
-    
-    moveit_config = MoveItConfigsBuilder("moveo", package_name="iteration_3").to_moveit_configs()
-    
-    launch_package_path = moveit_config.package_path
-    
+    ####################################################################
+    # MoveIt2
+
     move_group = IncludeLaunchDescription(
-    			PythonLaunchDescriptionSource(
-    				str(launch_package_path/"launch/iter3_move_group.launch.py")
+    			PythonLaunchDescriptionSource(os.path.join(
+                    share_dir,'launch' ,'iter3_move_group.launch.py')
     			),            
     )
     ##################################################################
-   
+    # RViz
     rviz = IncludeLaunchDescription(
-    			PythonLaunchDescriptionSource(
-    				str(launch_package_path/"launch/iter3_moveit_rviz.launch.py")
-    			),                
+                PythonLaunchDescriptionSource(os.path.join(
+    				share_dir,'launch' ,'iter3_moveit_rviz.launch.py')
+    			),                         
     )
-    
     ##################################################################    
+    # Include the Gazebo launch file, provided by the gazebo_ros package
+    gazebo_params_file = os.path.join(share_dir,'config','gazebo_params.yaml')
     
-   # Include the Gazebo launch file, provided by the gazebo_ros package
-    gazebo_params_file = os.path.join(get_package_share_directory(package_name),'config','gazebo_params.yaml')
-    
-
     gazebo = IncludeLaunchDescription(
         PythonLaunchDescriptionSource([os.path.join(
         get_package_share_directory('gazebo_ros'), 'launch', 'gazebo.launch.py')]),
@@ -59,9 +54,12 @@ def generate_launch_description():
     # Run the spawner node from the gazebo_ros package. The entity name doesn't really matter if you only have a single robot.
     spawn_entity = Node(package='gazebo_ros', executable='spawn_entity.py',
                         arguments=['-topic', 'robot_description',
-                                   '-entity', 'my_botty'],
+                                   '-entity', 'Moveo-2_Entity'],
                         output='screen')
-
+    
+    ##################################################################    
+    # Controller Spawners
+    
     arm_planning_group_controller_spawner = Node(
         package="controller_manager",
         executable="spawner",
