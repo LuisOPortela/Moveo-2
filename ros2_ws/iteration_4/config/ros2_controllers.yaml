@@ -18,4 +18,9 @@ arm_planning_group_controller:
     state_interfaces:
       - position
       - velocity
-    open_loop_control: true
+    open_loop_control: false
+    gains:
+      Joint_1:
+        p: 0.5
+        i: 0.0
+        d: 0.0
