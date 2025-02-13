@@ -181,7 +181,7 @@ return_type Moveo2HardwareInterface::write(const rclcpp::Time &, const rclcpp::D
   // DISTINGUI ENTRE OS JOINTS AO MANDAR VALORES
   for (auto & joint : moveo2_joints_)
   {
-    serial_conn_.sendMsg(std::to_string(joint.velocities_command) + 's');
+    serial_conn_.sendMsg(std::to_string(joint.velocities_command));
     //RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Writing joint velocitie command : %f", joint.velocities_command);
   }
   

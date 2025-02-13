@@ -19,7 +19,7 @@ void Moveo2SerialPort::sendEmptyMsg()
 
 void Moveo2SerialPort::sendMsg(const std::string &msg_to_send)
 {
-    serial_conn_.write(msg_to_send);
+    serial_conn_.write(msg_to_send+'\n');
 }
 
 

@@ -11,9 +11,9 @@ class Moveo2SerialPort
     Moveo2SerialPort()
     {  }
 
-    Moveo2SerialPort(const std::string &serial_device, int32_t baud_rate, int32_t timeout_ms)
-        : serial_conn_(serial_device, baud_rate, serial::Timeout::simpleTimeout(timeout_ms))
-    {  }
+    Moveo2SerialPort(const std::string &serial_device, int32_t baud_rate, int32_t timeout_ms){
+         setup(serial_device, baud_rate, timeout_ms);
+    }
 
     void setup(const std::string &serial_device, int32_t baud_rate, int32_t timeout_ms);
     void sendEmptyMsg();

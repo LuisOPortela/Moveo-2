@@ -57,7 +57,7 @@ void loop()
     char receivedChar = Serial.read();
     
     // If newline is received, process the buffer
-    if (receivedChar == 's') {
+    if (receivedChar == '\n') {
       inputBuffer[bufferIndex] = '\0';  // Null-terminate the string
       float speed = atof(inputBuffer);    // Convert buffer to integer
       int steps_sec = speed2steps(speed,joint_1.pulseRev);
