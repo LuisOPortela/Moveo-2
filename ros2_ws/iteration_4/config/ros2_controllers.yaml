@@ -21,6 +21,6 @@ arm_planning_group_controller:
     open_loop_control: false
     gains:
       Joint_1:
-        p: 0.5
+        p: 0.6
         i: 0.0
         d: 0.0
