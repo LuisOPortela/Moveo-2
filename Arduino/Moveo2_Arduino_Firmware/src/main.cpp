@@ -12,7 +12,7 @@
 //----------------------------------------------------------------
 
 
-moveoJoint joint_1(1600,1,A0,A1);
+moveoJoint joint_1(12800,1,A0,A1);
 
 
 const byte maxLength = 10;
