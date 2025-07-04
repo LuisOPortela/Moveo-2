@@ -146,7 +146,7 @@ return_type Moveo2HardwareInterface::read(const rclcpp::Time & /*time*/, const r
     try
     {
       joint_position = i2c_conn_.read_sensor(joint.encoder_i2c_adress);
-      //RCLCPP_INFO(rclcpp::get_logger("Moveo2HardwareInterface"),"%s Read -> Sensor value %f:%s",GREEN.c_str(),joint_position,RESET.c_str());
+      RCLCPP_INFO(rclcpp::get_logger("Moveo2HardwareInterface"),"%s Read -> Sensor value %f:%s",GREEN.c_str(),joint_position,RESET.c_str());
     }
     catch (const std::exception& e)
     {
@@ -182,7 +182,7 @@ return_type Moveo2HardwareInterface::write(const rclcpp::Time &, const rclcpp::D
   for (auto & joint : moveo2_joints_)
   {
     serial_conn_.sendMsg(std::to_string(joint.velocities_command));
-    //RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Writing joint velocitie command : %f", joint.velocities_command);
+    RCLCPP_INFO(rclcpp::get_logger("Moveo2HardwareInterface"), "Writing joint velocitie command : %f", joint.velocities_command);
   }
   
   return return_type::OK;
