@@ -34,6 +34,7 @@ namespace moveo2_plugins
     std::string name;
     int steps_per_revolution;
     int encoder_i2c_adress;
+    double initial_position_offset;
     double velocities_command=0;
     double position_state=0;
     double velocities_state=0;

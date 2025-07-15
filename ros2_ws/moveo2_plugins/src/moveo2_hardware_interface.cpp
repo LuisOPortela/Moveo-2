@@ -154,6 +154,16 @@ return_type Moveo2HardwareInterface::read(const rclcpp::Time & /*time*/, const r
     }
   
     const double delta_seconds = period.seconds();
+
+    //Add the initial position offset to the joint position
+    joint_position += joint.initial_position_offset;
+
+    // Normalize bitween -Pi and Pi using fmod:
+    joint_position = fmod(joint_position + M_PI, 2 * M_PI);
+    if (joint_position < 0)
+        joint_position += 2 * M_PI;
+    joint_position -= M_PI;
+
     joint.position_state = joint_position;
     joint.velocities_state = (joint_position- joint_position_previous)/delta_seconds;
     
