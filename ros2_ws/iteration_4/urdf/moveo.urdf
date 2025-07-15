@@ -2,6 +2,12 @@
 <robot
   name="moveo">	
 
+    <link name="world"/>
+  
+  <joint name="fixed" type="fixed">
+    <parent link="world"/>
+    <child link="base_link"/>
+  </joint>
   
   <!-- BASE LINK -->
   <link
@@ -49,54 +55,6 @@
     </collision>
   </link>
   
-  
-  
-    
-  <link name="world"/>
-  
-  <joint name="fixed" type="fixed">
-    <parent link="world"/>
-    <child link="base_link"/>
-  </joint>
-  
-  
-
-  <!-- DUMMY LINK -->
-  
-  
-  <link
-    name="odom">
-    <inertial>
-      <origin
-        xyz="0.034155 -0.20591 -0.049641"
-        rpy="0 0 0" />
-      <mass
-        value="8.0643" />
-      <inertia
-        ixx="0.11291"
-        ixy="0.00066071"
-        ixz="1.0E-09"
-        iyy="0.089946"
-        iyz="0.011461"
-        izz="0.19187" />
-    </inertial>
-   </link>
-
-  <joint
-    name="odom_joint"
-    type="fixed">
-    <origin
-      xyz="0 0 0"
-      rpy="0 0 0" />
-    <parent
-      link="base_link" />
-    <child
-      link="odom" />
-  </joint>
-
-
-
-
 
 
 

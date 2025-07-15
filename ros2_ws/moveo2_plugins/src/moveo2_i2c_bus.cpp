@@ -35,7 +35,7 @@ void Moveo2I2C::set_device(const int adress)
 double Moveo2I2C::read_magnitude()
 {
 
-    const char M[1]={0xFE};       //Define that we want magnitude values from the encoder
+    unsigned const char M[1]={0xFE};       //Define that we want magnitude values from the encoder
     
     if(::write(i2c_conn_, M, 1)==-1)
     {
