@@ -2,11 +2,11 @@
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="moveo">
     <xacro:arg name="initial_positions_file" default="initial_positions.yaml" />
 
-    
+
     <!-- Import moveo_urdf urdf file -->
-    <xacro:include filename="moveo.urdf" />
+    <xacro:include filename="$(find iteration_4)/urdf/moveo.urdf" />
 
     <!-- Import control_xacro -->
-    <xacro:include filename="moveo.ros2_control.xacro" />
-    
+    <xacro:include filename="$(find iteration_4)/urdf/moveo.ros2_control.xacro" />
+
 </robot>

@@ -9,3 +9,4 @@ Arduino/Test sketches/Arduino_Nano_Receive_dir_pul/.vscode/extensions.json
 Arduino/Test sketches/Arduino_Nano_Receive_dir_pul/src/Receive_dir_pul.code-workspace
 
 Arduino/Moveo2_Arduino_Firmware/.vscode/
+Raspberry/test_sketches/serial_port_test
