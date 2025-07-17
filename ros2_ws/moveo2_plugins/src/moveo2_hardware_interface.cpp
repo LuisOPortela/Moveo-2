@@ -45,7 +45,9 @@ hardware_interface::CallbackReturn Moveo2HardwareInterface::on_init(            
         moveo2_joints_.emplace_back(Joint{
             joint.name,
             std::stoi(joint.parameters.at("steps_per_revolution")),
-            std::stoi(joint.parameters.at("encoder_i2c_adress"))
+            std::stoi(joint.parameters.at("encoder_i2c_adress")),
+            std::stod(joint.parameters.at("initial_position_offset"))
+
         });
     }
   } 
