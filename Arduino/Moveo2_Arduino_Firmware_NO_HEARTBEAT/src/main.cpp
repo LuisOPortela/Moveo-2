@@ -19,11 +19,6 @@ const byte maxLength = 10;
 char inputBuffer[maxLength];
 byte bufferIndex = 0;
 
-//Heartbeat variables
-unsigned long lastCommandTime = 0;
-const unsigned long commandTimeout = 1000; // Timeout in milliseconds (e.g., 1000 ms = 1 second)
-
-
 //void decode();
 
 int speed2steps(float speed, int pulsesRev);
@@ -40,7 +35,7 @@ void setup() {
   // put your setup code here, to run once:
   
   joint_1.motor.setMaxSpeed(1600);
-  joint_1.motor.setSpeed(0);
+  joint_1.motor.setSpeed(800);
   
   Serial.begin(9600);
 
@@ -57,7 +52,7 @@ void setup() {
 //----------------------------------------------------------------
 void loop() 
 {
-  bool commandReceived = false;
+
   while (Serial.available() > 0) {
     char receivedChar = Serial.read();
     
@@ -72,8 +67,6 @@ void loop()
       Serial.println(String("Steps per second:")+steps_sec);
       // Reset buffer index for next input
       bufferIndex = 0;
-      lastCommandTime = millis(); // Update last command time
-      commandReceived = true;    
     } else {
       // Add received character to buffer if it does not exceed maxLength
       if (bufferIndex < maxLength - 1) {
@@ -81,16 +74,11 @@ void loop()
       }
     }
   }
-  // Check for timeout
-  if (!commandReceived && (millis() - lastCommandTime > commandTimeout)) {
-    joint_1.motor.setSpeed(0); // Set speed to 0 if timeout
-  }  
+
   // Run the motor at the set speed
   joint_1.motor.runSpeed();
 }
 
-
-// Convert speed in rads/s to steps per second
 int speed2steps(float speed, int pulsesRev)
 {
 return int(speed*float(pulsesRev)/(2*PI)); //check

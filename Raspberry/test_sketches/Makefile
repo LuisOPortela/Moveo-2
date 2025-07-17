@@ -2,7 +2,7 @@ CXX = g++
 CXXFLAGS = -std=c++11 -I./serial/include -I./serial/src -fdiagnostics-color=always -g -Wall
 LDFLAGS = -lpthread
 
-SRC = ./src/serial_port_test.cpp ./serial/src/serial.cpp
+SRC = ./src/serial_port_test.cpp ./serial/src/serial.cpp ./serial/src/impl/unix.cc ./serial/src/impl/list_ports_linux.cc
 OBJ = $(SRC:.cpp=.o)
 
 TARGET = serial_port_test

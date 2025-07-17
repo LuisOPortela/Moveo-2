@@ -17,7 +17,8 @@ int main()
         std::cout << "Please enter an unsigned integer: ";
         std::cin >> value;
         // Send a message
-         serial_conn_.write(value);
+         serial_conn_.write(value+"\n");
+
         // Receive a message
 
     }

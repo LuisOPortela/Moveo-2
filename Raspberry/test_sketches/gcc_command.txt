@@ -1,0 +1,1 @@
+g++ src/serial_port_test.cpp     serial/src/serial.cc     serial/src/impl/unix.cc     serial/src/impl/list_ports/list_ports_linux.cc     -Iserial/include     -o serial_port_test
