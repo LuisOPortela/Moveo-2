@@ -150,7 +150,6 @@ return_type Moveo2HardwareInterface::read(const rclcpp::Time & /*time*/, const r
     try
     {
       joint_position = i2c_conn_.read_sensor(joint.encoder_i2c_adress);
-      RCLCPP_DEBUG(rclcpp::get_logger("Moveo2HardwareInterface"),"%s Read -> Sensor value %f:%s",GREEN.c_str(),joint_position,RESET.c_str());
     }
     catch (const std::exception& e)
     {
@@ -160,21 +159,22 @@ return_type Moveo2HardwareInterface::read(const rclcpp::Time & /*time*/, const r
     const double delta_seconds = period.seconds();
 
     //Truncate the joint position to 3 decimal places
-    joint_position=round(joint_position*1000)/1000;
+    joint_position=round(joint_position*1000.0)/1000.0;
      
     //Add the initial position offset to the joint position
     joint_position += joint.initial_position_offset;
 
-    // Apply a low-pass filter to the joint position
-    joint_position = alpha * joint_position + (1 - alpha) * joint_position_previous;
-
-
-
     // Normalize bitween -Pi and Pi using fmod:
-    joint_position = fmod(joint_position + M_PI, 2 * M_PI);
+    joint_position = fmod(joint_position + M_PI, 2.0 * M_PI);
     if (joint_position < 0)
-        joint_position += 2 * M_PI;
+        joint_position += 2.0 * M_PI;
     joint_position -= M_PI;
+
+    // Apply a low-pass filter to the joint position
+    //! THIS WILL BECOME A PROBLEM IF WE GO FROM 2PI TO 0 IN A full turn
+    joint_position = alpha * joint_position + (1.0 - alpha) * joint_position_previous;
+
+    RCLCPP_DEBUG(rclcpp::get_logger("Moveo2HardwareInterface"),"%s Read -> Sensor value %f:%s",GREEN.c_str(),joint_position,RESET.c_str());
 
     joint.position_state = joint_position;
     joint.velocities_state = (joint_position- joint_position_previous)/delta_seconds;
