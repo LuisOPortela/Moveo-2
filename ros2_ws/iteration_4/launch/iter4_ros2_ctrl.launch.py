@@ -19,6 +19,14 @@ def generate_launch_description():
 
     ld =LaunchDescription()
     
+    ld.add_action(
+        DeclareLaunchArgument(
+			'log_level',
+			default_value='info',
+			description='Logging level (debug, info, warn, error, fatal)'
+    	)
+    )
+    
     ld.add_action (
 	    Node(
 	    	package="controller_manager",
@@ -29,6 +37,7 @@ def generate_launch_description():
 	    	remappings=[
 	    		("/controller_manager/robot_description", "/robot_description"),
 	    	],
+			arguments=['--ros-args', '--log-level', LaunchConfiguration('log_level')],
 	    )
     )
     ld.add_action(
