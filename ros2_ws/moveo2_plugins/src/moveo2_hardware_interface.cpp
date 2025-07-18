@@ -140,6 +140,8 @@ std::vector<hardware_interface::CommandInterface> Moveo2HardwareInterface::expor
 
 return_type Moveo2HardwareInterface::read(const rclcpp::Time & /*time*/, const rclcpp::Duration & period) 
 {
+  float alpha = 0.05; // Smoothing factor for the filtered position
+
   for (auto & joint : moveo2_joints_)
   {
     const auto joint_position_previous = joint.position_state;
@@ -157,8 +159,16 @@ return_type Moveo2HardwareInterface::read(const rclcpp::Time & /*time*/, const r
   
     const double delta_seconds = period.seconds();
 
+    //Truncate the joint position to 3 decimal places
+    joint_position=round(joint_position*1000)/1000;
+     
     //Add the initial position offset to the joint position
     joint_position += joint.initial_position_offset;
+
+    // Apply a low-pass filter to the joint position
+    joint_position = alpha * joint_position + (1 - alpha) * joint_position_previous;
+
+
 
     // Normalize bitween -Pi and Pi using fmod:
     joint_position = fmod(joint_position + M_PI, 2 * M_PI);
