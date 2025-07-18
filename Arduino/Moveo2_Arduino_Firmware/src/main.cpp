@@ -11,8 +11,8 @@
 //
 //----------------------------------------------------------------
 
-
-moveoJoint joint_1(12800,1,A0,A1);
+//12800 pulses per revolution *10 gear ratio
+moveoJoint joint_1(128000,1,A0,A1);
 
 
 const byte maxLength = 10;
@@ -39,7 +39,7 @@ int speed2steps(float speed, int pulsesRev);
 void setup() {
   // put your setup code here, to run once:
   
-  joint_1.motor.setMaxSpeed(1600);
+  joint_1.motor.setMaxSpeed(32000);
   joint_1.motor.setSpeed(0);
   
   Serial.begin(9600);
