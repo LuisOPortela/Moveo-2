@@ -20,9 +20,12 @@ arm_planning_group_controller:
       - velocity
     open_loop_control: false
     constraint:
-      stopped_velocity_tolerance: 0.1 
+      stopped_velocity_tolerance: 0.01
+      Joint_1.goal: 0.001
+      Joint_1.trajectory: 0.001
     gains:
       Joint_1:
-        p: 0.4
+        p: 15.00
         i: 0.0
-        d: 0.2
+        d: 1.00
+        error_deadband: 0.00

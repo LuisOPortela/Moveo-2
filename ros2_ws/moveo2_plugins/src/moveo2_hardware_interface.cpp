@@ -179,7 +179,6 @@ return_type Moveo2HardwareInterface::read(const rclcpp::Time & /*time*/, const r
     joint.position_state = joint_position;
     joint.velocities_state = (joint_position- joint_position_previous)/delta_seconds;
     
-    
   /*    
     for (auto & joint : moveo2_joints_)
     {
@@ -203,6 +202,7 @@ return_type Moveo2HardwareInterface::write(const rclcpp::Time &, const rclcpp::D
   // DISTINGUI ENTRE OS JOINTS AO MANDAR VALORES
   for (auto & joint : moveo2_joints_)
   {
+    if(joint.velocities_command < 0.001 && joint.velocities_command > -0.001) joint.velocities_command = 0.00;
     serial_conn_.sendMsg(std::to_string(joint.velocities_command));
     RCLCPP_DEBUG(rclcpp::get_logger("Moveo2HardwareInterface"), "Writing joint velocitie command : %f", joint.velocities_command);
   }
