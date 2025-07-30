@@ -11,6 +11,7 @@
 				<param name="timeout">1000</param>
 			</hardware>
 			<joint name="Joint_1">
+				<param name="id">1</param>
 				<param name="steps_per_revolution">1600</param>
 				<param name="encoder_i2c_adress">64</param>
 				<param name="initial_position_offset">-1.756</param>

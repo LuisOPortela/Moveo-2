@@ -32,6 +32,7 @@ namespace moveo2_plugins
   struct Joint
   {
     std::string name;
+    int id;
     int steps_per_revolution;
     int encoder_i2c_adress;
     double initial_position_offset;

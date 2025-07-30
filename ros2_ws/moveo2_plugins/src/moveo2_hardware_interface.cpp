@@ -44,6 +44,7 @@ hardware_interface::CallbackReturn Moveo2HardwareInterface::on_init(            
     {
         moveo2_joints_.emplace_back(Joint{
             joint.name,
+            std::stoi(joint.parameters.at("id")),
             std::stoi(joint.parameters.at("steps_per_revolution")),
             std::stoi(joint.parameters.at("encoder_i2c_adress")),
             std::stod(joint.parameters.at("initial_position_offset"))
@@ -196,16 +197,31 @@ return_type Moveo2HardwareInterface::read(const rclcpp::Time & /*time*/, const r
 //################################################################################
 
 
-return_type Moveo2HardwareInterface::write(const rclcpp::Time &, const rclcpp::Duration & period)
+return_type Moveo2HardwareInterface::write(const rclcpp::Time &, const rclcpp::Duration &)
 {
   //*Send velocities through the serial port
-  // DISTINGUI ENTRE OS JOINTS AO MANDAR VALORES
+
+  std::string msg = "";
+  size_t idx = 0;
+
   for (auto & joint : moveo2_joints_)
   {
-    if(joint.velocities_command < 0.001 && joint.velocities_command > -0.001) joint.velocities_command = 0.00;
-    serial_conn_.sendMsg(std::to_string(joint.velocities_command));
-    RCLCPP_DEBUG(rclcpp::get_logger("Moveo2HardwareInterface"), "Writing joint velocitie command : %f", joint.velocities_command);
+    if(joint.velocities_command < 0.001 && joint.velocities_command > -0.001) 
+      joint.velocities_command = 0.00;
+
+    msg += "J" + std::to_string(joint.id) + ":" + std::to_string(joint.velocities_command);
+
+    // Add a separator if it's not the last joint
+
+    if (idx != moveo2_joints_.size() - 1)
+      msg += ",";
+
+    ++idx;
   }
+ 
+  RCLCPP_DEBUG(rclcpp::get_logger("Moveo2HardwareInterface"), "Writing joint velocitie command : %s", msg.c_str());
+  msg += "\n";
+  serial_conn_.sendMsg(msg);
   
   return return_type::OK;
 }
