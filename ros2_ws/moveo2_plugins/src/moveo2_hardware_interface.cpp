@@ -220,8 +220,11 @@ return_type Moveo2HardwareInterface::write(const rclcpp::Time &, const rclcpp::D
   }
  
   RCLCPP_DEBUG(rclcpp::get_logger("Moveo2HardwareInterface"), "Writing joint velocitie command : %s", msg.c_str());
-  msg += "\n";
   serial_conn_.sendMsg(msg);
+//  serial_conn_.readtrash();  //Dosent work
+    serial_conn_.readline();   // WITHOUT THIS THE ARDUINO MEGA DOES NOT WORK, EVEN WITH ITS SERIAL PRINTS REMOVED
+//  RCLCPP_INFO(rclcpp::get_logger("Moveo2HardwareInterface"), "Resposta do arduino : %s", line.c_str());
+
   
   return return_type::OK;
 }

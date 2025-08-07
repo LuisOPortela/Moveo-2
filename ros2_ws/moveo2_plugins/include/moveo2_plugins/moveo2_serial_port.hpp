@@ -18,6 +18,8 @@ class Moveo2SerialPort
     void setup(const std::string &serial_device, int32_t baud_rate, int32_t timeout_ms);
     void sendEmptyMsg();
     void sendMsg(const std::string &msg_to_send);
+    std::string readline();
+    void readtrash();
     
     private:
     serial::Serial serial_conn_;  ///< Underlying serial connection 

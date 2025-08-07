@@ -23,14 +23,24 @@ void Moveo2SerialPort::sendMsg(const std::string &msg_to_send)
 }
 
 
-/*
-std::string Moveo2SerialPort::read()
+
+std::string Moveo2SerialPort::readline()
 {
     std::string response = serial_conn_.readline();
     return response;
 
 }
 
+
+void Moveo2SerialPort::readtrash()
+{
+    
+    if(serial_conn_.available()) {
+	std::vector<uint8_t> trash(serial_conn_.available());
+	serial_conn_.read(trash,trash.size()); 
+    }
+}
+/*
 std::string Moveo2SerialPort::sendMsg(const std::string &msg_to_send, bool print_output)
 {
     serial_conn_.write(msg_to_send);

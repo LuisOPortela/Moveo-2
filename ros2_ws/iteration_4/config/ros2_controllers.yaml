@@ -25,7 +25,7 @@ arm_planning_group_controller:
       Joint_1.trajectory: 0.001
     gains:
       Joint_1:
-        p: 15.00
+        p: 5.00
         i: 0.0
-        d: 1.00
+        d: 0.10
         error_deadband: 0.00
