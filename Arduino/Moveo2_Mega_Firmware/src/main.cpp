@@ -13,7 +13,7 @@
 
 
 
-const byte maxLength = 100;
+const byte maxLength = 50;
 char inputBuffer[maxLength];
 byte bufferIndex = 0;
 
@@ -74,14 +74,18 @@ void loop()
             
             int steps_sec=change_motor_speed(jointIndex, speed);
             
-            // Serial.print("Joint ");
-            // Serial.print(jointIndex);
-            // Serial.print(" steps/sec: ");
-            // Serial.println(steps_sec);
+            //Serial.print("Joint ");
+            //Serial.print(jointIndex);
+            //Serial.print(" steps/sec: ");
+            //Serial.println(steps_sec);
+            Serial.println(steps_sec);
+
           }
         }
         token = strtok(NULL, ",");
       }
+
+      
       bufferIndex = 0;
       lastCommandTime = millis(); // Update last command time
       commandReceived = true;    
@@ -89,6 +93,10 @@ void loop()
       // Add received character to buffer if it does not exceed maxLength
       if (bufferIndex < maxLength - 1) {
         inputBuffer[bufferIndex++] = receivedChar;
+      } else {
+        //Buffer overflow, reset index
+        bufferIndex = 0;
+
       }
     }
   }
