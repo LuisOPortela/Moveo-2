@@ -15,7 +15,7 @@ import xacro
 
 def generate_launch_description():
     
-    moveit_config = MoveItConfigsBuilder("moveo", package_name="iteration_4").to_moveit_configs()
+    moveit_config = MoveItConfigsBuilder("moveo", package_name="iteration_5").to_moveit_configs()
 
     ld =LaunchDescription()
     
