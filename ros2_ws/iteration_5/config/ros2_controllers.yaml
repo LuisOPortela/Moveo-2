@@ -1,0 +1,35 @@
+controller_manager:
+  ros__parameters:
+    update_rate: 120
+    
+    arm_planning_group_controller:
+      type: joint_trajectory_controller/JointTrajectoryController
+
+
+    joint_state_broadcaster:
+      type: joint_state_broadcaster/JointStateBroadcaster
+
+arm_planning_group_controller:
+  ros__parameters:
+    joints:
+      - Joint_1
+      - Joint_2
+    command_interfaces:
+      - velocity
+    state_interfaces:
+      - position
+      - velocity
+    open_loop_control: false
+    constraint:
+      stopped_velocity_tolerance: 0.1 
+    gains:
+      Joint_1:
+        p: 0.4
+        i: 0.0
+        d: 0.2
+  
+      Joint_2:
+        p: 0.4
+        i: 0.0
+        d: 0.2
+

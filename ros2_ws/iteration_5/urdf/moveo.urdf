@@ -1,0 +1,195 @@
+<?xml version='1.0'?>
+<robot
+  name="moveo">	
+
+    <link name="world"/>
+  
+  <joint name="fixed" type="fixed">
+    <parent link="world"/>
+    <child link="base_link"/>
+  </joint>
+  
+  <!-- BASE LINK -->
+  <link
+    name="base_link">
+   
+    <inertial>
+      <origin
+        xyz="0.005 0.065 0.003"
+        rpy="0 0 0" />
+      <mass
+        value="5.0" />
+      <inertia
+        ixx="0.142"
+	ixy="0.002"
+	ixz="1.0E-09"
+	iyy="0.139"
+	iyz="0.004"
+	izz="0.273"/>
+        
+    </inertial>
+    
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://iteration_3/meshes/base_link.stl" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.75294 0.75294 0.75294 1" />
+      </material>
+    </visual>
+    
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://iteration_3/meshes/base_link.stl" />
+      </geometry>
+    </collision>
+  </link>
+  
+
+
+
+  <!--   LINK 1   -->
+
+  <link
+    name="Link_1">
+    <inertial>
+      <origin
+        xyz="-1.184E-05 -8.007E-06 0.161"
+        rpy="0 0 0" />
+      <mass
+        value="3" />
+      <inertia
+        ixx="0.007"
+	ixy="4.973E-09"
+	ixz="1.485E-06"
+	iyy="0.011"
+	iyz="1.0E-09"
+	izz="0.008" />
+    </inertial>
+    
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://iteration_3/meshes/Link_1.stl" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.75294 0.75294 0.75294 1" />
+      </material>
+    </visual>
+    
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://iteration_3/meshes/Link_1.stl" />
+      </geometry>
+    </collision>
+  </link>
+  
+  
+  
+  <joint
+    name="Joint_1"
+    type="revolute">
+    <origin
+      xyz="0 0 0.092"
+      rpy="0 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="Link_1" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="-1.5707"
+      upper="1.5707"
+      effort="5.0"
+      velocity="1.0" />
+  </joint>
+
+  <!--   LINK 2   -->
+
+  <link
+    name="Link_2">
+    <inertial>
+      <origin
+        xyz="0.002 -5.960E-05 0.31"
+        rpy="0 0 0" />
+      <mass
+        value="2.5" />
+      <inertia
+        ixx="0.017"
+	ixy="1.0E-09"
+	ixz="1.0E-09"
+	iyy="0.018"
+	iyz="1.108E-05"
+	izz="0.004" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://iteration_3/meshes/Link_2.stl" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.75294 0.75294 0.75294 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://iteration_3/meshes/Link_2.stl" />
+      </geometry>
+    </collision>
+  </link>
+ 
+  <joint
+    name="Joint_2"
+    type="revolute">
+    <origin
+      xyz="0 0 0.14"
+      rpy="0 0 0" />
+    <parent
+      link="Link_1" />
+    <child
+      link="Link_2" />
+    <axis
+      xyz="-1 0 0" />
+    <limit
+      lower="-1.700"
+      upper="1.700"
+      effort="5.0"
+      velocity="1.0" />
+  </joint>
+ 
+  
+
+</robot>
+
+
+  
+
