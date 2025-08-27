@@ -185,7 +185,73 @@
       effort="5.0"
       velocity="1.0" />
   </joint>
+  
+  <!--   LINK 3   -->  
+
+  <link
+    name="Link_3">
+    <inertial>
+      <origin
+        xyz="0.00 0.00 0.506"
+        rpy="0 0 0" />
+      <mass
+        value="1.2" />
+      <inertia
+	ixx=" 0.003"
+	ixy="6.126E-08"
+	ixz="1.0E-09"
+	iyy="0.003"
+	iyz="1.274E-06"
+	izz="0.001" />
+    </inertial>
+    
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://iteration_3/meshes/Link_3.stl" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.75294 0.75294 0.75294 1" />
+      </material>
+    </visual>
+    
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://iteration_3/meshes/Link_3.stl" />
+      </geometry>
+    </collision>
+  </link>
  
+  <joint
+    name="Joint_3"
+    type="revolute">
+    <origin
+      xyz="0 0 0.221"
+      rpy="0 0 0" />
+    <parent
+      link="Link_2" />
+    <child
+      link="Link_3" />
+    <axis
+      xyz="-1 0 0" />
+    <limit
+      lower="-1.963"
+      upper="1.963"
+      effort="5.0"
+      velocity="1.0" />
+  </joint>
+   
+   
+
   
 
 </robot>
