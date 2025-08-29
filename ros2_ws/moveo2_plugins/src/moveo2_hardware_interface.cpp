@@ -154,7 +154,7 @@ return_type Moveo2HardwareInterface::read(const rclcpp::Time & /*time*/, const r
     }
     catch (const std::exception& e)
     {
-       RCLCPP_INFO(rclcpp::get_logger("Moveo2HardwareInterface"),"%s Read -> I2C Bus error:%s%s",RED.c_str(),e.what(),RESET.c_str());
+       RCLCPP_INFO(rclcpp::get_logger("Moveo2HardwareInterface"),"%s Read -> Joint %d I2C Bus error:%s%s",RED.c_str(),joint.id,e.what(),RESET.c_str());
     }
   
     const double delta_seconds = period.seconds();
@@ -175,7 +175,7 @@ return_type Moveo2HardwareInterface::read(const rclcpp::Time & /*time*/, const r
     //! THIS WILL BECOME A PROBLEM IF WE GO FROM 2PI TO 0 IN A full turn
     joint_position = alpha * joint_position + (1.0 - alpha) * joint_position_previous;
 
-    RCLCPP_DEBUG(rclcpp::get_logger("Moveo2HardwareInterface"),"%s Read -> Sensor value %f:%s",GREEN.c_str(),joint_position,RESET.c_str());
+    RCLCPP_DEBUG(rclcpp::get_logger("Moveo2HardwareInterface"),"%s Read -> Joint %d Sensor value %f:%s",GREEN.c_str(),joint.id,joint_position,RESET.c_str());
 
     joint.position_state = joint_position;
     joint.velocities_state = (joint_position- joint_position_previous)/delta_seconds;
