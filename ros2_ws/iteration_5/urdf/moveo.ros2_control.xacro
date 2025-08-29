@@ -17,7 +17,7 @@
 				<param name="direction">1</param>
 				
 				<param name="steps_per_revolution">32000</param>
-				<param name="encoder_i2c_adress">0x40</param>
+				<param name="encoder_i2c_adress">64</param>
 				<param name="initial_position_offset">-1.756</param>
 
 				<command_interface name="velocity"/>
@@ -31,7 +31,7 @@
 				<param name="direction">1</param>
 
 				<param name="steps_per_revolution">16000</param>
-				<param name="encoder_i2c_adress">0x44</param>
+				<param name="encoder_i2c_adress">68</param>
 				<param name="initial_position_offset">0</param>
 				
 				<command_interface name="velocity"/>
@@ -45,7 +45,7 @@
 				<param name="direction">1</param>
 
 				<param name="steps_per_revolution">256</param>
-				<param name="encoder_i2c_adress">0x48</param>
+				<param name="encoder_i2c_adress">72</param>
 				<param name="initial_position_offset">0</param>
 				
 				<command_interface name="velocity"/>
